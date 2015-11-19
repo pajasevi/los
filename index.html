@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Etneterácký los</title>
+        <link rel="stylesheet" href="./normalize.css" media="screen" charset="utf-8">
+    </head>
+    <style media="screen">
+        .content {
+            text-align: center;
+        }
+        .content > div {
+            margin: 5em 0;
+        }
+        body {
+            background: url('./los.png') no-repeat right top;
+        }
+        .names {
+            font-size: 3em;
+            font-weight: bold;
+        }
+        .winner {
+            font-size: 3em;
+            font-weight: bold;
+            color: #ed5b2f;
+            transition: height 0.2s;
+        }
+        .button {
+            border: 1px solid #ed5b2f;
+            box-shadow: 0 0 0 transparent;
+            border-radius: 3em;
+            display: inline-block;
+            padding: 1em 2.5em;
+            text-transform: uppercase;
+            -webkit-transform: translate(0, 0);
+            -ms-transform: translate(0, 0);
+            transform: translate(0, 0);
+            transition: all 0.2s;
+            background: #fff;
+            color: #ed5b2f;
+        }
+        .button:focus,
+        .button:hover {
+            border-color: #ff935f;
+            box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.15);
+            -webkit-transform: translate(0, -1px);
+            -ms-transform: translate(0, -1px);
+            transform: translate(0, -1px);
+            color: #ff935f;
+            outline: 0;
+        }
+        .button:active {
+            background-color: #ed5b2f;
+            border-color: #ed5b2f;
+            color: #fff;
+            box-shadow: 0 0 0 transparent;
+            -webkit-transform: translate(0, 0);
+            -ms-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+    </style>
+    <body>
+        <div class="content">
+            <div>
+                <img src="./etn-los-logo.png" alt="" />
+            </div>
+            <div>
+                <span id="names" class="names">O výherci rozhodne los!</span>
+            </div>
+            <div>
+                <span id="winner" class="winner"></span>
+            </div>
+            <div>
+                <button type="button" id="spin" class="button">Losovat!</button>
+            </div>
+        </div>
+        <script>
+            var names = ['Petr', 'Eva', 'Marek', 'Tomáš', 'Ondra'];
+            var namesElement = document.getElementById('names');
+            var winnerElement = document.getElementById('winner');
+            var spin = document.getElementById('spin');
+
+            var spinFunction = function() {
+                var i = 0;
+                var nameSpin = setInterval(function() {
+                    namesElement.innerHTML = names[i];
+                    if (i == names.length - 1) {
+                        i = 0;
+                    }
+                    else {
+                        i++;
+                    }
+                }, 100);
+
+                var nameTimeout = setTimeout(function() {
+                    var randNumber = Math.floor(Math.random() * names.length)
+                    winnerElement.innerHTML = names[randNumber];
+                    clearInterval(nameSpin);
+                    namesElement.innerHTML = 'A výhercem je:';
+                }, 5000);
+            }
+
+            spin.addEventListener('click', function() {
+                spinFunction();
+            }, false);
+        </script>
+    </body>
+</html>
